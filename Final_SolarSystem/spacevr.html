@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+<head>
+   <title>10 - SpaceVR Simulator</title>
+   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=yes,maximum-scale=1">
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+   <script src="js/global-functions.js"></script>
+   <script src="js/keypress.js"></script>
+   <!--style>
+   *{
+      cursor: none;
+   }
+   </style-->
+
+</head>
+<body>
+
+   <a-scene id="main-scene" fog="type: exponential; color: #000; density: .0003">
+
+      <!--
+
+      Credits
+
+      Earth material:
+      http://visibleearth.nasa.gov/view.php?id=74218
+      R. St¨ockli, E. Vermote, N. Saleous, R. Simmon and D. Herring (2005). The Blue
+         Marble Next Generation - A true color earth dataset including seasonal
+         dynamics from MODIS. Published by the NASA Earth Observatory. Corresponding
+         author: rstockli@climate.gsfc.nasa.gov
+
+
+      Milky Way material:
+      http://coolcosmos.ipac.caltech.edu/images/142
+
+      -->
+	  <a-assets>
+         <a-mixin id="planet" material="roughness: 1; metalness: 0"></a-mixin>
+		 <img id="milkyimg" src="assets/milky-equi.jpg">
+		 <audio id="song" src="assets/song.mp3" preload="auto"></audio>
+      </a-assets>
+      <!-- Global Settings -->
+      <a-sky src="#milkyimg" material="fog: false"></a-sky>
+	  <a-light color="#fff" type="ambient" intensity="1"></a-light>
+
+      <!-- Global Camera -->
+      <a-camera id="camera" position="5 3 5" active="true" wasd-controls>
+
+	  </a-camera>
+	  <a-camera id="camera-angular" position="0 500 500" active="true" wasd-controls>
+		<!--a-entity cursor="fuse: true; fuseTimeout: 500"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: white; shader: flat">
+		</a-entity-->
+	  </a-camera>
+      <a-camera id="camera-top" position="0 300 0" active="false" wasd-controls>
+		<a-entity cursor="fuse: true; fuseTimeout: 500"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: white; shader: flat">
+		</a-entity>
+	  </a-camera>
+      <a-camera id="camera-side" position="0 0 500" active="false" wasd-controls>
+		<!--a-entity cursor="fuse: true; fuseTimeout: 500"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: white; shader: flat">
+		</a-entity-->
+	  </a-camera>
+
+      <!-- World Elements -->
+      <a-entity id="universe" sound="src:#song autoplay: true">
+
+		<a-sphere   id="sun"
+                     class="star"
+                     radius="695700"  material="src: url(assets/sun.jpg)"  >
+            <a-light color="#F7F3D2" type="point" decay=".1" intensity="1"></a-light>
+         </a-sphere>
+
+         <!--
+         km    planetary-radius
+               planetary-color
+               planetary-axis
+         deg   planetary-position
+         km    orbital-radius
+         km/s  orbital-speed
+         -->
+
+
+         <a-entity   id="mercury"
+                     class="planet"
+                     planetary-radius="2439.7"
+                     planetary-axis="0 0 0"
+                     planetary-position="0"
+                     orbital-radius="57909050"
+                     orbital-speed="47.362"
+					 cursor-listener>
+                     <a-sphere mixin="planet"  material="src: url(assets/mercury.jpg)"></a-sphere>
+                     <a-animation></a-animation>
+					 <a-text value="This is Mercury!." align="center" color="#FFF"></a-text>
+					</a-entity>
+
+         <a-entity   id="venus"
+                     class="planet"
+                     planetary-radius="6051.8"
+                     planetary-axis="0 0 0"
+                     planetary-position="0"
+                     orbital-radius="108208000"
+                     orbital-speed="35.02"
+					 cursor-listener>
+                     <a-sphere mixin="planet"  material="src: url(assets/venus.jpg)"></a-sphere>
+                     <a-animation></a-animation>
+					 <a-text value="This is Venus!." align="center" color="#FFF"></a-text>
+         </a-entity>
+
+         <a-entity   id="earth"
+                     class="planet"
+                     planetary-radius="6371.0"
+                     planetary-axis="0 0 0"
+                     planetary-position="0"
+                     orbital-radius="149598023"
+                     orbital-speed="29.78"
+					 cursor-listener>
+                     <a-sphere mixin="planet"  material="src: url(assets/earth-equi.jpg)"></a-sphere>
+                     <a-animation></a-animation>
+					 <a-text value="This is Earth!." align="center" color="#FFF"></a-text>
+                     <!-- <a-camera id="camera-planet-earth" position="0 2 2" active="true"></a-camera> -->
+         </a-entity>
+
+         <a-entity   id="mars"
+                     class="planet"
+                     planetary-radius="3389.5"
+                     planetary-axis="0 0 0"
+                     planetary-position="0"
+                     orbital-radius="227939200"
+                     orbital-speed="24.077"
+					 cursor-listener>
+                     <a-sphere mixin="planet"  material="src: url(assets/mars.jpg)"></a-sphere>
+                     <a-animation></a-animation>
+					 <a-text value="This is Mars!." align="center" color="#FFF"></a-text>
+         </a-entity>
+
+         <a-entity   id="jupiter"
+                     class="planet"
+                     planetary-radius="69911"
+                     planetary-axis="0 0 0"
+                     planetary-position="0"
+                     orbital-radius="778299000"
+                     orbital-speed="13.07"
+					 cursor-listener>
+                     <a-sphere mixin="planet"  material="src: url(assets/jupiter.jpg)"></a-sphere>
+                     <a-animation></a-animation>
+					 <a-text value="This is Jupiter!." align="center" color="#FFF"></a-text>
+                     <!-- <a-camera id="camera-planet-jupiter" position="0 2 2" active="false"></a-camera> -->
+         </a-entity>
+
+         <a-entity   id="saturn"
+                     class="planet"
+                     planetary-radius="58232"
+                     planetary-axis="0 0 0"
+                     planetary-position="0"
+                     orbital-radius="1429390000"
+                     orbital-speed="9.69"
+					 cursor-listener>
+                     <a-sphere mixin="planet"  material="src: url(assets/saturn.jpg)"></a-sphere>
+                     <a-animation></a-animation>
+					 <a-text value="This is Saturn!." align="center" color="#FFF"></a-text>
+         </a-entity>
+
+         <a-entity   id="uranus"
+                     class="planet"
+                     planetary-radius="25362"
+                     planetary-axis="0 0 0"
+                     planetary-position="0"
+                     orbital-radius="2875040000"
+                     orbital-speed="6.80"
+					 cursor-listener>
+                     <a-sphere mixin="planet"  material="src: url(assets/uranus.jpg)"></a-sphere>
+                     <a-animation></a-animation>
+					 <a-text value="This is Uranus!." align="center" color="#FFF"></a-text>
+         </a-entity>
+
+         <a-entity   id="neptune"
+                     class="planet"
+                     planetary-radius="24622"
+                     planetary-axis="0 0 0"
+                     planetary-position="0"
+                     orbital-radius="4504450000"
+                     orbital-speed="5.43"
+					 cursor-listener>
+                     <a-sphere mixin="planet"  material="src: url(assets/neptune.jpg)"></a-sphere>
+                     <a-animation></a-animation>
+					 <a-text value="This is Neptune!." align="center" color="#FFF"></a-text>
+         </a-entity>
+
+      </a-entity>
+
+   </a-scene>
+
+
+   <script>
+
+      var settings = {
+		
+		  camera:                 'camera',
+          scalarOrbitalRadius:    1 / 1000000,
+         // Scales the planetary radius
+         scalarPlanetaryRadius:  1 / 500,
+         // Scales the Sun's radius
+         scalarSunRadius:        1 / 20000,
+         // Auto-enter VR
+         enterVR: true,
+         // Auto-reload, uses reloadTime
+         reload: false,
+         // In seconds
+         reloadTime: 20
+      }
+
+
+
+      /*
+         Setup global variables
+      */
+      var scene = document.querySelector('#main-scene');
+      var universe = document.querySelector('#universe');
+	  var planets = {
+         els: scene.querySelectorAll('.planet'),
+         // The rest of the object gets built with buildPlanets()
+      }
+      var cameras = {
+         els: scene.querySelectorAll('a-camera'),
+         active: settings.camera
+         // The rest of the object gets built with buildCameras()
+      }
+
+      /*
+         Add event listener to run after scene is loaded
+      */
+      scene.addEventListener('loaded', function(){
+		 /*var entity = document.querySelector('[sound]');
+		 entity.components.sound.playSound();*/
+		 buildPlanets(planets);
+
+         scaleSun()
+         devTools();
+		 
+
+      });
+	   /*
+         Keylistener functions
+      */
+      // Setup
+      var keyListener = new window.keypress.Listener();
+	  
+	  keyListener.simple_combo('l', function(){
+         toggleCameraTo('camera-top');
+      });
+      keyListener.simple_combo('o', function(){
+         toggleCameraTo('camera-angular');
+      });
+      keyListener.simple_combo('p', function(){
+         toggleCameraTo('camera-side');
+      });
+	  
+	  AFRAME.registerComponent('cursor-listener', {
+		init: function () {
+		var el = this.el;  // <a-entity>
+          el.addEventListener('mouseenter', function () {
+            el.setAttribute('color', '#24CAFF');  
+          });
+          el.addEventListener('mouseleave', function () {
+            el.setAttribute('color', '#EF2D5E');  
+          });
+          el.addEventListener('click', function () {
+			alert(el.querySelector('a-text').getAttribute('value'));
+          });
+  }
+});
+	  function buildPlanets(planets){
+         // Loop it to build {}
+         for(i = 0; i < planets.els.length; i++){
+            var planet = planets.els[i];
+            var planetName = planet.getAttribute('id');
+            var planetEl = scene.querySelector('#' + planetName)
+            // Create the planet object entry and scale appropriately
+            planets[planetName] = {
+               el:               planetEl,
+               classes:          planetEl.getAttribute('class'),
+               planetaryRadius:     planetEl.getAttribute('planetary-radius') * settings.scalarPlanetaryRadius,
+               planetaryColor:      planetEl.getAttribute('planetary-color'),
+               // planetaryAxis:       planetEl.getAttribute('planetary-axis'),
+               planetaryPosition:   planetEl.getAttribute('planetary-position'), // rotational angle to euclidian
+               orbitalRadius:       planetEl.getAttribute('orbital-radius') * settings.scalarOrbitalRadius,
+               orbitalSpeed:        planetEl.getAttribute('orbital-speed')
+            };
+            // Create the planet in the DOM
+            var planetDOM = planets[planetName].el.querySelector('a-sphere');
+            planetDOM.setAttribute('geometry', {
+               primitive:  'sphere',
+               radius:     planets[planetName].planetaryRadius
+            });
+            planetDOM.setAttribute('position', { //TODO correct math
+               x: Number(planets[planetName].orbitalRadius) * Math.sin(Number(planets[planetName].planetaryPosition) * Math.PI),
+               y: 0,
+               z: Number(planets[planetName].orbitalRadius) * Math.cos(Number(planets[planetName].planetaryPosition) * Math.PI)
+            });
+			
+			var info=planets[planetName].el.querySelector('a-text');;
+			info.setAttribute('position', { //TODO correct math
+               x: Number(planets[planetName].orbitalRadius) * Math.sin(Number(planets[planetName].planetaryPosition) * Math.PI)+20,
+               y: 0,
+               z: Number(planets[planetName].orbitalRadius) * Math.cos(Number(planets[planetName].planetaryPosition) * Math.PI)
+            });
+			//info.setAttribute("visible",false);
+            // Create the animation in the DOM
+            var animationDOM = planets[planetName].el.querySelector('a-animation');
+            animationDOM.setAttribute('attribute', 'rotation');
+            animationDOM.setAttribute('dur', 360 / planets[planetName].orbitalSpeed * 1000);
+            animationDOM.setAttribute('fill', 'forwards');
+            animationDOM.setAttribute('to', '0 360 0');
+            animationDOM.setAttribute('repeat', '2');
+            animationDOM.setAttribute('easing', 'linear')
+         }
+         // Return the object
+         return planets;
+      }
+	  
+	  function scaleSun(){
+         var sunEl = scene.querySelector('#sun')
+         var sunRadius = sunEl.getAttribute('radius');
+         sunEl.setAttribute('radius', sunRadius * settings.scalarSunRadius);
+      }
+	  
+	  function devTools(){
+   if(settings.enterVR == true){
+      scene.enterVR();
+   }
+   // If the reload setting is turned on, enterVR and reload the page after a set time
+   if(settings.reload == true){
+      reloadPage(settings.reloadTime);
+   }
+}
+
+   </script>
+   </body>
+</html>
