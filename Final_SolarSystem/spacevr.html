@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-   <title>10 - SpaceVR Simulator</title>
+   <title>Solar System Simulator</title>
    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=yes,maximum-scale=1">
    <meta name="apple-mobile-web-app-capable" content="yes">
    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
@@ -18,22 +18,6 @@
 
    <a-scene id="main-scene" fog="type: exponential; color: #000; density: .0003">
 
-      <!--
-
-      Credits
-
-      Earth material:
-      http://visibleearth.nasa.gov/view.php?id=74218
-      R. St¨ockli, E. Vermote, N. Saleous, R. Simmon and D. Herring (2005). The Blue
-         Marble Next Generation - A true color earth dataset including seasonal
-         dynamics from MODIS. Published by the NASA Earth Observatory. Corresponding
-         author: rstockli@climate.gsfc.nasa.gov
-
-
-      Milky Way material:
-      http://coolcosmos.ipac.caltech.edu/images/142
-
-      -->
 	  <a-assets>
          <a-mixin id="planet" material="roughness: 1; metalness: 0"></a-mixin>
 		 <img id="milkyimg" src="assets/milky-equi.jpg">
@@ -319,7 +303,7 @@
             animationDOM.setAttribute('dur', 360 / planets[planetName].orbitalSpeed * 1000);
             animationDOM.setAttribute('fill', 'forwards');
             animationDOM.setAttribute('to', '0 360 0');
-            animationDOM.setAttribute('repeat', '2');
+            animationDOM.setAttribute('repeat', 'indefinite');
             animationDOM.setAttribute('easing', 'linear')
          }
          // Return the object
